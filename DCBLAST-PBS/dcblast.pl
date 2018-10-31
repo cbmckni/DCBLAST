@@ -62,7 +62,7 @@ write_merge_shell($dcblast_mergecmd);
 # blastjob
 my @qsub_blastjob = qsub_opt($config->{pbs});
 push @qsub_blastjob, '-N', "$config->{dcblast}{job_name_prefix}_split";
-push @qsub_blastjob, '-t', "1-$cnt";
+push @qsub_blastjob, '-J', "1-$cnt";
 push @qsub_blastjob, $dcblast_blastcmd;
 run_command(@qsub_blastjob);
 
