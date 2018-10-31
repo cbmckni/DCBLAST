@@ -70,7 +70,7 @@ run_command(@qsub_blastjob);
 # mergejob
 print STDOUT "MERGE\n";
 my @qsub_mergejob = qsub_opt($config->{pbs});
-push @qsub_mergejob, '-W depend=', "$config->{dcblast}{job_name_prefix}_split";
+push @qsub_mergejob, '-W depend=afterok:', "$config->{dcblast}{job_name_prefix}_split";
 push @qsub_mergejob, '-N',        "$config->{dcblast}{job_name_prefix}_merge";
 push @qsub_mergejob, $dcblast_mergecmd, "$opt_output/results", $cnt;
 run_command(@qsub_mergejob);
