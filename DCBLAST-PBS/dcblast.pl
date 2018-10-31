@@ -77,7 +77,7 @@ run_command(@qsub_mergejob);
 
 # qstat
 print STDOUT "QSTAT\n";
-run_command('qstat -u $config->{pbs}{u}');
+run_command("qstat -u $config->{pbs}{u}");
 
 print "DONE\n";
 
