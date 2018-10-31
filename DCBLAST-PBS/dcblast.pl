@@ -60,6 +60,7 @@ write_blast_shell($dcblast_blastcmd, $config->{blast}, $opt_blast, $paths);
 write_merge_shell($dcblast_mergecmd);
 
 # blastjob
+print STDOUT "BLAST\n";
 my @qsub_blastjob = qsub_opt($config->{pbs});
 push @qsub_blastjob, '-N', "$config->{dcblast}{job_name_prefix}_split";
 push @qsub_blastjob, '-J', "1-$cnt";
@@ -67,6 +68,7 @@ push @qsub_blastjob, $dcblast_blastcmd;
 run_command(@qsub_blastjob);
 
 # mergejob
+print STDOUT "MERGE\n";
 my @qsub_mergejob = qsub_opt($config->{pbs});
 push @qsub_mergejob, '-W depend=', "$config->{dcblast}{job_name_prefix}_split";
 push @qsub_mergejob, '-N',        "$config->{dcblast}{job_name_prefix}_merge";
@@ -74,7 +76,8 @@ push @qsub_mergejob, $dcblast_mergecmd, "$opt_output/results", $cnt;
 run_command(@qsub_mergejob);
 
 # qstat
-run_command('qstat -u cbmckni');
+print STDOUT "QSTAT\n";
+run_command('qstat -u $config->{pbs}{u}');
 
 print "DONE\n";
 
