@@ -74,7 +74,7 @@ push @qsub_mergejob, $dcblast_mergecmd, "$opt_output/results", $cnt;
 run_command(@qsub_mergejob);
 
 # qstat
-run_command('qstat');
+run_command('qstat -u cbmckni');
 
 print "DONE\n";
 
@@ -177,7 +177,7 @@ sub qsub_opt {
     my @qsub_opts = ('qsub');
 
     for my $k (sort keys %$pbs) {
-        next if $k eq 'N';
+        next if $k eq 'u';
         push @qsub_opts, "-$k";
         push @qsub_opts, $pbs->{$k};
     }
